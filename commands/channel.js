@@ -2,7 +2,6 @@ const spreadsheet = require('../google_spreadsheet');
 let { Bot } = require('../store');
 let { array_to_chunks } = require('../utils');
 let bot = Bot.get().bot
-let channels = []
 
 
 async function channel(ctx) {
@@ -17,7 +16,6 @@ async function channel(ctx) {
     let message = `channels available`;
 
     let output_keyboards = await getchannels();
-    channels = output_keyboards
     output_keyboards = output_keyboards.map((d) => {
         return {
             text: d.name,
@@ -29,7 +27,6 @@ async function channel(ctx) {
         callback_data: '/channel add'
     }]
     output_keyboards = array_to_chunks(output_keyboards, 2);
-
     bot.telegram.sendMessage(ctx.chat.id, message, {
         reply_markup: {
             inline_keyboard: output_keyboards
@@ -47,6 +44,7 @@ async function getchannels() {
             "url": d.url
         }
     })
+    output = output.filter(d => d.name)
     return output;
 }
 

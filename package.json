@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "google-spreadsheet": "^3.0.11",
+    "googleapis": "^39.2.0",
     "telegraf": "^3.38.0"
   }
 }

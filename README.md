@@ -107,7 +107,7 @@ BOT_TOKEN=<YOUR BOT TOKEN>
 
 - [pupubird](https://github.com/pupubird) - The lonely programmer
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/pupubird/STC_Telegram_Bot/graphs/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 

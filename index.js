@@ -2,8 +2,10 @@ require('dotenv').config();
 const Telegraf = require('telegraf');
 const path = require('path');
 const fs = require('fs');
+let { Bot } = require('./store');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
+Bot.store(bot);
 createCommands(bot)
 listen()
 

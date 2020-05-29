@@ -24,7 +24,7 @@
 - [About](#about)
 - [How it works](#working)
 - [Getting Started](#getting_started)
-- [Deploying your own bot](#deployment)
+- [Contribute](#contribute)
 - [Built Using](#built_using)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
@@ -41,11 +41,19 @@ Bots are special Telegram accounts designed to handle messages automatically. Us
 
 This bot uses [Telegraf](https://telegraf.js.org/#/) as a wrapper to the telegram core API to ease out and smoothen the development process.
 
+The backend: 🤩 Google Sheets as Backend!
+
 ## 🎈 Usage <a name = "usage"></a>
 
 To use the bot, go to:
 
 [https://t.me/sunwaytechclub_bot](https://t.me/sunwaytechclub_bot)
+
+and type
+
+```bash
+/start
+```
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -63,9 +71,35 @@ Installing [Telegraf](https://telegraf.js.org/#/)
 npm install telegraf
 ```
 
-## 🚀 Deploying your own bot <a name = "deployment"></a>
+## 🚀 Contribute <a name = "contribute"></a>
 
-Work in progress...
+To create new command:
+
+1. Create a new JavaScript file in `/commands` folder, the script will detect the file and build the endpoint based on the file name
+2. write a function with `ctx` as argument, and export the function. an example is as shown below:
+
+```javascript
+function test(ctx) {
+  ctx.reply("Hello world!");
+}
+
+module.exports = test;
+```
+
+to get the bot object
+
+```javascript
+let { Bot } = require('../store');
+let bot = Bot.get().bot
+```
+
+3. And you are good to go! Simply create a new bot from the @BotFather, create a file called `.env` at the root level and write
+
+```env
+BOT_TOKEN=<YOUR BOT TOKEN>
+```
+
+*...tbc tutorial on integrating spreadsheet (or you may checkout this https://developers.google.com/sheets/api/quickstart/nodejs)*
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 

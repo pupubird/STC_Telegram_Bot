@@ -21,6 +21,7 @@ function createCommands(bot) {
         let file_names = files.map(d => d.replace('.js', ''));
         file_names.forEach(d => {
             bot.command(`/${d}`, require(`./commands/${d}`))
+            bot.action(d, require(`./commands/${d}`))
         })
     });
 }

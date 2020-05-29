@@ -14,3 +14,4 @@ async function init() {
     console.log(doc.title + " spreadsheet is ready")
     return doc;
 }
+module.exports = init;

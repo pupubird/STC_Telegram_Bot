@@ -2,31 +2,31 @@ const spreadsheet = require('../google_spreadsheet');
 let { Bot } = require('../store');
 let { array_to_chunks } = require('../utils');
 let bot = Bot.get().bot
-let groups = []
+let channels = []
 
 
-async function group(ctx) {
+async function channel(ctx) {
     try {
         ctx.deleteMessage();
     } catch (error) { }
 
-    if (ctx.message && ctx.message.text.includes("/group add")) {
-        return ctx.reply("To add a new group to the list, please use this form https://google.com")
+    if (ctx.message && ctx.message.text.includes("/channel add")) {
+        return ctx.reply("To add a new channel to the list, please use this form https://google.com")
     }
 
-    let message = `Groups available`;
+    let message = `channels available`;
 
-    let output_keyboards = await getGroups();
-    groups = output_keyboards
-    output_keyboards = output_keyboards.map((d, i) => {
+    let output_keyboards = await getchannels();
+    channels = output_keyboards
+    output_keyboards = output_keyboards.map((d) => {
         return {
             text: d.name,
             url: d.url
         }
     });
     output_keyboards = [...output_keyboards, {
-        text: 'Add new group',
-        callback_data: '/group add'
+        text: 'Add new channel',
+        callback_data: '/channel add'
     }]
     output_keyboards = array_to_chunks(output_keyboards, 2);
 
@@ -37,10 +37,10 @@ async function group(ctx) {
     });
 }
 
-async function getGroups() {
+async function getchannels() {
     let doc = await spreadsheet();
-    let group = doc.sheetsByIndex[0];
-    let rows = await group.getRows()
+    let channel = doc.sheetsByIndex[1];
+    let rows = await channel.getRows()
     let output = rows.map(d => {
         return {
             "name": d.name,
@@ -50,10 +50,9 @@ async function getGroups() {
     return output;
 }
 
-bot.action('/group add', (ctx) => {
+bot.action('/channel add', (ctx) => {
     ctx.deleteMessage();
-
-    let url = "https://docs.google.com/forms/d/e/1FAIpQLSdnGHhAP2dLhOlMfDHR9xD5V4en1Ya4Xgjr63dKO3uOLPl0eQ/viewform?usp=sf_link"
+    let url = "https://docs.google.com/forms/d/e/1FAIpQLSffFBVsFHk_5sqjjUG_BSpFIfCSVxufgH8nLZcAN_HjhS1TnA/viewform"
     bot.telegram.sendMessage(ctx.chat.id, "To add a new channel to the list, please use this form",
         {
             reply_markup: {
@@ -66,4 +65,4 @@ bot.action('/group add', (ctx) => {
         })
 });
 
-module.exports = group;
+module.exports = channel;

@@ -1,6 +1,5 @@
-const config = require('./calendar_settings.json');
+const config = require('./calendar_settings.js');
 const CalendarAPI = require('node-google-calendar');
-const creds = require('./calendar_settings.json');
 
 async function init() {
     const cal = new CalendarAPI(config);
@@ -8,7 +7,9 @@ async function init() {
     return cal;
 }
 
+const calendarIdList = config.calendarId;
+
 module.exports = {
     init: init,
-    creds: creds
+    calendarIdList: calendarIdList
 }

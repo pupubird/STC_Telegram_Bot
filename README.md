@@ -87,8 +87,7 @@ module.exports = test;
 to get the bot object
 
 ```javascript
-let { Bot } = require('../store');
-let bot = Bot.get().bot
+let bot = global.Bot;
 ```
 
 3. And you are good to go! Simply create a new bot from the @BotFather, create a file called `.env` at the root level and write

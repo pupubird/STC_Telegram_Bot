@@ -14,9 +14,10 @@
     "dotenv": "^8.2.0",
     "google-spreadsheet": "^3.0.11",
     "googleapis": "^39.2.0",
-    "nodemon": "^2.0.4",
     "node-google-calendar": "^1.1.1",
-    "telegraf": "^3.38.0"
+    "nodemon": "^2.0.4",
+    "telegraf": "^3.38.0",
+    "uuid": "^8.1.0"
   },
   "nodemonConfig": {
     "restartable": "rs",

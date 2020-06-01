@@ -1,9 +1,0 @@
-{
-    "service_account": "test-158@telebot-278807.iam.gserviceaccount.com",
-    "key_file": "converted-key-file.pem",
-    "time_zone": "UTC+08:00",
-    "calendar_url": "https://calendar.google.com/calendar/b/1?cid=ZnJhbmtleWM3NzdAZ21haWwuY29t",
-    "calendar_id": {
-        "primary": "sunwaytechclub@gmail.com"
-    }
-}

@@ -1,6 +1,5 @@
 const fs = require('fs');
-let { Bot } = require('../store');
-let bot = Bot.get().bot
+let bot = global.Bot;
 let { array_to_chunks } = require('../utils');
 
 let file_names;

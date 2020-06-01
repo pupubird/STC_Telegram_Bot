@@ -2,14 +2,13 @@ require('dotenv').config();
 const Telegraf = require('telegraf');
 const path = require('path');
 const fs = require('fs');
-let { Bot } = require('./store');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-Bot.store(bot);
-createCommands(bot)
+global.Bot = bot;
+createCommands()
 process.env.NODE_ENV == 'dev' && listen(); // listen on this server for development
 
-function createCommands(bot) {
+function createCommands() {
     //joining path of directory 
     const directoryPath = path.join(__dirname, 'commands');
     //passsing directoryPath and callback function

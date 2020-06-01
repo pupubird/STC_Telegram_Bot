@@ -1,7 +1,6 @@
 const spreadsheet = require('../google_spreadsheet');
-let { Bot } = require('../store');
 let { array_to_chunks } = require('../utils');
-let bot = Bot.get().bot
+let bot = global.Bot;
 let groups = []
 
 

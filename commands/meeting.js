@@ -1,8 +1,7 @@
 const calendar = require('../google_calendar');
 const { v4: uuidv4 } = require('uuid');
-let { Bot } = require('../store');
 let { array_to_chunks } = require('../utils');
-let bot = Bot.get().bot;
+let bot = global.Bot;
 
 function meeting(ctx) {
     try {
@@ -90,7 +89,7 @@ bot.action('/meeting add', (ctx) => {
         let tempTime = tempEventTime.split(":");
         let timeHour = Number(tempTime[0]);
         let timeMin = tempTime[1];
-        let endDate = `2020-${eventDate}T${timeHour+1}:${timeMin}:00+08:00`;
+        let endDate = `2020-${eventDate}T${timeHour + 1}:${timeMin}:00+08:00`;
         let event = {
             'summary': eventName,
             'start': {
@@ -119,7 +118,7 @@ bot.action('/meeting add', (ctx) => {
             let confirmedTime = tempTime[0];
             return ctx.reply(`Event created! 🤩🤩🤩\nEvent name: ${confirmedName}\nDate: ${confirmedDate}\nTime: ${confirmedTime}\nMeeting link: ${confirmedLink}`);
         });
-        
+
     })
 });
 

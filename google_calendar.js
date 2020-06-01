@@ -1,4 +1,4 @@
-const config = require('./Settings');
+const config = require('./calendar_settings.json');
 const CalendarAPI = require('node-google-calendar');
 const creds = require('./calendar_settings.json');
 

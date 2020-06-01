@@ -1,7 +1,8 @@
 let { Bot } = require('../store');
 let { array_to_chunks } = require('../utils');
 let bot = Bot.get().bot
-
+const calendar = require('../google_calendar');
+const { v4: uuidv4 } = require('uuid');
 
 function meeting(ctx) {
     try {
@@ -9,7 +10,10 @@ function meeting(ctx) {
     } catch (error) { }
 
     if (ctx.message && ctx.message.text.includes("/meeting add")) {
-        return ctx.reply("To add a new meeting to the list, please use this form https://google.com")
+        ctx.reply("Please enter event name: ")
+        bot.on('text', (ctx) => {
+            return ctx.reply(`${ctx.message.text}`)
+        })
     }
 
     let message = `Meetings available`;
@@ -62,9 +66,61 @@ function getMeetings() {
     ]
 }
 
+async function createEvent(event) {
+    let cal = await calendar.init();
+    let calendarIdList = calendar.calendarIdList;
+    let optionalQueryParams = {
+        'conferenceDataVersion': 1
+    }
+    let result = await cal.Events.insert(calendarIdList['primary'], event, optionalQueryParams).then(resp => {
+        return resp;
+    })
+    return result;
+}
+
 bot.action('/meeting add', (ctx) => {
     ctx.deleteMessage();
-    ctx.reply("To add a new meeting to the list, please use this form https://google.com")
+    ctx.reply("Please enter event details in the format of:\n<eventName>,<month>-<day>,<hour>:<minute>.\nE.g. General Meeting,6-16,20:30");
+    bot.on('text', (ctx) => {
+        let message = ctx.message.text.split(",");
+        let eventName = message[0];
+        let eventDate = message[1];
+        let tempEventTime = message[2];
+        let startDate = `2020-${eventDate}T${tempEventTime}:00+08:00`;
+        let tempTime = tempEventTime.split(":");
+        let timeHour = Number(tempTime[0]);
+        let timeMin = tempTime[1];
+        let endDate = `2020-${eventDate}T${timeHour+1}:${timeMin}:00+08:00`;
+        let event = {
+            'summary': eventName,
+            'start': {
+                'dateTime': startDate
+            },
+            'end': {
+                'dateTime': endDate
+            },
+            "conferenceData": {
+                "createRequest": {
+                    "requestId": uuidv4(),
+                    "conferenceSolution": {
+                        'key': {
+                            'type': 'eventHangout'
+                        }
+                    }
+                }
+            }
+        };
+        createEvent(event).then(result => {
+            let confirmedName = result.summary;
+            let confirmedLink = result.hangoutLink;
+            let tempDateTime = result.start.dateTime.split('T');
+            let confirmedDate = tempDateTime[0];
+            let tempTime = tempDateTime[1].split('+');
+            let confirmedTime = tempTime[0];
+            return ctx.reply(`Event created! 🤩🤩🤩\nEvent name: ${confirmedName}\nDate: ${confirmedDate}\nTime: ${confirmedTime}\nMeeting link: ${confirmedLink}`);
+        });
+        
+    })
 });
 
 module.exports = meeting;

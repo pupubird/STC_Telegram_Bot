@@ -1,8 +1,8 @@
-let { Bot } = require('../store');
-let { array_to_chunks } = require('../utils');
-let bot = Bot.get().bot
 const calendar = require('../google_calendar');
 const { v4: uuidv4 } = require('uuid');
+let { Bot } = require('../store');
+let { array_to_chunks } = require('../utils');
+let bot = Bot.get().bot;
 
 function meeting(ctx) {
     try {

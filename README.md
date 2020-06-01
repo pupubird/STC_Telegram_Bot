@@ -97,6 +97,12 @@ let bot = Bot.get().bot
 BOT_TOKEN=<YOUR BOT TOKEN>
 ```
 
+4. Now, you may start the development server by runnign
+
+```env
+npm run dev
+```
+
 *...tbc tutorial on integrating spreadsheet (or you may checkout this https://developers.google.com/sheets/api/quickstart/nodejs)*
 
 ## ⛏️ Built Using <a name = "built_using"></a>

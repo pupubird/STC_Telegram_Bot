@@ -7,7 +7,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 Bot.store(bot);
 createCommands(bot)
-listen(); // listen on this server for development
+process.env.NODE_ENV == 'dev' && listen(); // listen on this server for development
 
 function createCommands(bot) {
     //joining path of directory 
